@@ -1,5 +1,6 @@
 import { EnvelopeClosedIcon, MobileIcon } from "@radix-ui/react-icons";
 import { Flex, IconButton, Text } from "@radix-ui/themes";
+import Link from "next/link";
 import SidebarMobile from "./SidebarMobile";
 import GetQuoteButton from "./get-a-quote/GetQuoteButton";
 
@@ -11,9 +12,11 @@ const Header = () => {
         align="center"
         className="p-4 border-b border-gray-300"
       >
-        <Text size="3" weight="bold">
-          Oak Outlet Plus
-        </Text>
+        <Link href="/">
+          <Text size="3" weight="bold">
+            Oak Outlet Plus
+          </Text>
+        </Link>
         <GetQuoteButton />
 
         <Flex justify={"end"} gap={"2"} pr={"5"} mr={"3"}>
