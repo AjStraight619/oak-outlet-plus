@@ -8,6 +8,7 @@ const GetQuote = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [files, setFiles] = useState<FileList | null>(null);
 
   const router = useRouter();
 
@@ -17,6 +18,11 @@ const GetQuote = () => {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("phoneNumber", phoneNumber);
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        formData.append("files", files[i]);
+      }
+    }
     try {
       const res = await fetch("/api/get-quote", {
         method: "POST",
@@ -25,7 +31,7 @@ const GetQuote = () => {
       if (res.ok) {
         const data = await res.json();
         console.log(data);
-        router.push("/thank-you");
+        router.push(`/thank-you?name=${encodeURIComponent(name)}`);
       }
     } catch (error) {
       console.log(error);
@@ -48,6 +54,10 @@ const GetQuote = () => {
     setPhoneNumber(formattedPhoneNumber);
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFiles(e.target.files);
+  };
+
   return (
     <Flex justify={"center"} direction={"column"} align={"center"}>
       <h1>Get Quote</h1>
@@ -65,7 +75,7 @@ const GetQuote = () => {
                 type="name"
                 value={name}
                 onChange={(e: any) => setName(e.target.value)}
-                placeholder="Enter your name..."
+                placeholder="Name"
               />
             </Form.Control>
           </Form.Field>
@@ -78,12 +88,10 @@ const GetQuote = () => {
                 required
                 value={email}
                 onChange={(e: any) => setEmail(e.target.value)}
-                placeholder="Enter your email..."
+                placeholder="Email"
               />
             </Form.Control>
-            <Form.Message match="valueMissing">
-              Please enter your email
-            </Form.Message>
+            <Form.Message match="valueMissing">Email is required</Form.Message>
             <Form.Message match="typeMismatch">
               Please provide a valid email
             </Form.Message>
@@ -99,7 +107,7 @@ const GetQuote = () => {
                 required
                 value={phoneNumber}
                 onChange={handlePhoneNumberChange}
-                placeholder="Enter your phone number..."
+                placeholder="Phone Number"
                 maxLength={14}
               />
             </Form.Control>
@@ -109,6 +117,22 @@ const GetQuote = () => {
             <Form.Message match="typeMismatch">
               Please provide a valid phone number
             </Form.Message>
+          </Form.Field>
+          <Form.Field name="image" className="flex flex-col">
+            <Form.Label className="FormLabel"></Form.Label>
+            <Form.Control asChild>
+              <Button variant="soft">
+                Upload Pictures
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
+              </Button>
+            </Form.Control>
           </Form.Field>
           <Form.Submit asChild>
             <Button>Submit</Button>
