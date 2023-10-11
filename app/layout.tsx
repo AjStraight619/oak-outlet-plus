@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Theme appearance={"light"} accentColor={"blue"}>
-          <Header /> {/* Header component included here */}
+          <Header />
           {children}
         </Theme>
         <footer>Hello</footer>

@@ -18,7 +18,7 @@ const SidebarMobile = () => {
           onClick={handleSidebarToggle}
           style={{ background: "transparent" }}
         >
-          <HamburgerMenuIcon color="black" />
+          <HamburgerMenuIcon className="hover: cursor-pointer" color="black" />
         </IconButton>
       </div>
       {isSidebarOpen ? (
@@ -57,7 +57,7 @@ const SidebarMobile = () => {
             Follow Us
           </Text>
           <div className="flex space-x-4">
-            <Link href="#facebook" className="text-xl">
+            <Link href="" className="text-xl">
               🔵
             </Link>
             <Link href="#twitter" className="text-xl">

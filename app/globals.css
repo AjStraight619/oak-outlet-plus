@@ -3,3 +3,6 @@
 @tailwind utilities;
 
 
+.rt-Button:hover {
+    cursor: pointer;
+}   
