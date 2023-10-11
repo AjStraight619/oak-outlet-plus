@@ -6,3 +6,9 @@
 .rt-Button:hover {
     cursor: pointer;
 }   
+
+
+.required-field::after {
+    content: " *";
+    color: red;
+}

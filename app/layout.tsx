@@ -1,3 +1,4 @@
+import GoBack from "@/components/GoBack";
 import Header from "@/components/Header";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
@@ -22,9 +23,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <Theme appearance={"light"} accentColor={"blue"}>
           <Header />
+          <GoBack />
+
           {children}
         </Theme>
-        <footer>Hello</footer>
       </body>
     </html>
   );
