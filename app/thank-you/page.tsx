@@ -9,9 +9,11 @@ const ThankYouPage = () => {
   return (
     <Flex direction={"column"} gap={"2"} align={"center"} justify={"center"}>
       {name ? (
-        <Heading>Thank you {name}, we will get back with you soon!</Heading>
+        <Heading>
+          Thank you {name}, you should recieve an email from us soon!
+        </Heading>
       ) : (
-        <Heading>Thank you, we will get back with you soon!</Heading>
+        <Heading>Thank you, you should recieve an email from us soon!</Heading>
       )}
     </Flex>
   );

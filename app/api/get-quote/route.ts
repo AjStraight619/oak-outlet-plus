@@ -17,7 +17,11 @@ const client = mailgun.client({ username: "api", key: API_KEY });
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const email = formData.get("email") as unknown as string;
-  const name = formData.get("name") as unknown as string;
+  let name = formData.get("name") as unknown as string;
+
+  if (!name) {
+    name = "Customer";
+  }
 
   const messageData = {
     from: `Oak Outlet Plus <noreply@${DOMAIN}>`,
