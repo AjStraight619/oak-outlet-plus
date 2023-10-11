@@ -1,6 +1,13 @@
 "use client";
 import * as Form from "@radix-ui/react-form";
-import { Button, Container, Flex, TextFieldInput } from "@radix-ui/themes";
+import {
+  Button,
+  Container,
+  Flex,
+  Heading,
+  Text,
+  TextFieldInput,
+} from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -60,9 +67,8 @@ const GetQuote = () => {
 
   return (
     <Flex justify={"center"} direction={"column"} align={"center"}>
-      <h1>Get Quote</h1>
+      <Heading mb={"3"}>Get Quote</Heading>
       <Container size={"4"}>
-        Container for form
         <Form.Root
           onSubmit={onSubmit}
           className="space-y-4 w-full sm:w-[400px]"
@@ -120,6 +126,9 @@ const GetQuote = () => {
             </Form.Message>
           </Form.Field>
           <Form.Field name="files" className="flex flex-col">
+            <Text as="div" size={"1"} color="gray" align={"center"} m={"2"}>
+              Upload pictures of your kitchen to get a more accurate quote
+            </Text>
             <Form.Label
               htmlFor="fileInput"
               className="rt-Button rt-variant-soft rt-BaseButton rt-r-size-2"

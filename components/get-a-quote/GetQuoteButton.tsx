@@ -8,7 +8,7 @@ const GetQuoteButton = () => {
 
   return (
     <Flex justify={"center"}>
-      {pathname !== "/get-quote" && (
+      {pathname !== "/get-quote" && pathname !== "/thank-you" && (
         <Button
           className="hover:cursor-pointer"
           onClick={() => router.push("/get-quote")}
