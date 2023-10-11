@@ -17,6 +17,7 @@ const client = mailgun.client({ username: "api", key: API_KEY });
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const email = formData.get("email") as unknown as string;
+  const phone = formData.get("phoneNumber") as unknown as string;
   let name = formData.get("name") as unknown as string;
 
   if (!name) {
@@ -30,7 +31,15 @@ export async function POST(req: NextRequest) {
     text: `Hello ${name}, this is a confirmation email from Oak Outlet Plus. Thank you for choosing us! We will get in touch with you soon.`,
   };
 
+  const messageData2 = {
+    from: `Oak Outlet Plus <noreply@${DOMAIN}>`,
+    to: "nickatz5@yahoo.com",
+    subject: "Customer quote",
+    text: `${name}, is requesting a quote: \n ${email}, \n ${phone}`,
+  };
+
   await client.messages.create(MAILGUN_DOMAIN, messageData);
+  await client.messages.create(MAILGUN_DOMAIN, messageData2);
 
   return NextResponse.json({ name, email });
 }
