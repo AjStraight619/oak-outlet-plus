@@ -120,17 +120,16 @@ const GetQuote = () => {
             </Form.Message>
           </Form.Field>
           <Form.Field name="files" className="flex flex-col">
-            <Form.Label htmlFor="fileInput" className="FormLabel"></Form.Label>
+            <Form.Label
+              htmlFor="fileInput"
+              className="rt-Button rt-variant-soft rt-BaseButton rt-r-size-2"
+              role="button"
+              aria-label="Upload Pictures"
+            >
+              Choose Files
+            </Form.Label>
             <Form.Control asChild>
               <div>
-                <label
-                  htmlFor="fileInput"
-                  className="rt-Button rt-variant-soft rt-BaseButton rt-r-size-2" // Assuming 'Button' is a CSS class that styles the label like a button
-                  role="button"
-                  aria-label="Upload Pictures"
-                >
-                  Choose Files
-                </label>
                 <input
                   id="fileInput"
                   type="file"

@@ -1,3 +1,5 @@
+"use client";
+
 import { useSearchParams } from "next/navigation";
 const ThankYouPage = () => {
   const searchParams = useSearchParams();
@@ -5,7 +7,7 @@ const ThankYouPage = () => {
 
   return (
     <div>
-      <h1>Thank you page</h1>
+      <h1>Thank you {name} we will get back with you soon!</h1>
     </div>
   );
 };
