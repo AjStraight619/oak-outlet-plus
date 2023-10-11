@@ -67,7 +67,7 @@ const GetQuote = () => {
           onSubmit={onSubmit}
           className="space-y-4 w-full sm:w-[400px]"
         >
-          <Form.Field name="email" className="flex flex-col">
+          <Form.Field name="name" className="flex flex-col">
             <Form.Label className="FormLabel">Name</Form.Label>
             <Form.Control asChild>
               <TextFieldInput
@@ -85,6 +85,7 @@ const GetQuote = () => {
               <TextFieldInput
                 className="Input"
                 type="email"
+                name="email"
                 required
                 value={email}
                 onChange={(e: any) => setEmail(e.target.value)}
@@ -118,20 +119,28 @@ const GetQuote = () => {
               Please provide a valid phone number
             </Form.Message>
           </Form.Field>
-          <Form.Field name="image" className="flex flex-col">
-            <Form.Label className="FormLabel"></Form.Label>
+          <Form.Field name="files" className="flex flex-col">
+            <Form.Label htmlFor="fileInput" className="FormLabel"></Form.Label>
             <Form.Control asChild>
-              <Button variant="soft">
-                Upload Pictures
+              <div>
+                <label
+                  htmlFor="fileInput"
+                  className="rt-Button rt-variant-soft rt-BaseButton rt-r-size-2" // Assuming 'Button' is a CSS class that styles the label like a button
+                  role="button"
+                  aria-label="Upload Pictures"
+                >
+                  Choose Files
+                </label>
                 <input
                   id="fileInput"
                   type="file"
+                  name="files"
                   accept="image/*"
                   multiple
                   onChange={handleFileChange}
                   style={{ display: "none" }}
                 />
-              </Button>
+              </div>
             </Form.Control>
           </Form.Field>
           <Form.Submit asChild>
