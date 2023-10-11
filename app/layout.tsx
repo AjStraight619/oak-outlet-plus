@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
@@ -20,8 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Theme appearance={"light"} accentColor={"blue"}>
+          <Header /> {/* Header component included here */}
           {children}
         </Theme>
+        <footer>Hello</footer>
       </body>
     </html>
   );
