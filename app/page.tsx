@@ -1,10 +1,12 @@
 import PictureGallery from "@/components/PictureGallery";
+import SidebarMobile from "@/components/SidebarMobile";
 import SubHeader from "@/components/SubHeader";
 import { Box, Flex, Heading } from "@radix-ui/themes";
 
 export default function Home() {
   return (
     <main className="flex flex-col items-center p-4 min-h-screen">
+      <SidebarMobile />
       <Flex
         pt={"3"}
         direction={"column"}

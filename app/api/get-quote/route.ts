@@ -24,22 +24,22 @@ export async function POST(req: NextRequest) {
     name = "Customer";
   }
 
-  const messageData = {
+  const messageDataCustomer = {
     from: `Oak Outlet Plus <noreply@${DOMAIN}>`,
     to: email,
     subject: "Confirmation email",
     text: `Hello ${name}, this is a confirmation email from Oak Outlet Plus. Thank you for choosing us! We will get in touch with you soon.`,
   };
 
-  const messageData2 = {
+  const messageDataProvider = {
     from: `Oak Outlet Plus <noreply@${DOMAIN}>`,
     to: "nickatz5@yahoo.com",
     subject: "Customer quote",
     text: `${name}, is requesting a quote: \n ${email}, \n ${phone}`,
   };
 
-  await client.messages.create(MAILGUN_DOMAIN, messageData);
-  await client.messages.create(MAILGUN_DOMAIN, messageData2);
+  await client.messages.create(MAILGUN_DOMAIN, messageDataCustomer);
+  await client.messages.create(MAILGUN_DOMAIN, messageDataProvider);
 
   return NextResponse.json({ name, email });
 }

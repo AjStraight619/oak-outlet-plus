@@ -1,7 +1,6 @@
 import { EnvelopeClosedIcon, MobileIcon } from "@radix-ui/react-icons";
 import { Flex, IconButton, Text } from "@radix-ui/themes";
 import Link from "next/link";
-import SidebarMobile from "./SidebarMobile";
 import GetQuoteButton from "./get-a-quote/GetQuoteButton";
 
 const Header = () => {
@@ -32,7 +31,6 @@ const Header = () => {
               color="black"
             />
           </IconButton>
-          <SidebarMobile />
         </Flex>
       </Flex>
     </>
