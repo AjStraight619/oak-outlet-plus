@@ -1,3 +1,4 @@
+"use client";
 import FacebookSDK from "@/app/FacebookSDK";
 import PhotoDisplayComponent from "@/components/PhotoDisplay";
 import { useState } from "react";
