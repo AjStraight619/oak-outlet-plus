@@ -1,9 +1,19 @@
-import { EnvelopeClosedIcon, MobileIcon } from "@radix-ui/react-icons";
-import { Flex, IconButton, Text } from "@radix-ui/themes";
+import { Flex, Text } from "@radix-ui/themes";
 import Link from "next/link";
 import GetQuoteButton from "./get-a-quote/GetQuoteButton";
-
+import ContactButtons from "./ui/contact-buttons/ContactButtons";
 const Header = () => {
+  const handleEmailClick = () => {
+    window.location.href =
+      "mailto:Nickatz5@yahoo.com?subject=Inquiry&body=Hi, I would like to inquire about...";
+  };
+  const handlePhoneCallClick = () => {
+    window.location.href = "tel:+1234567890"; // Replace with your phone number
+  };
+  const handleTextMessageClick = () => {
+    window.location.href = "sms:+1234567890"; // Replace with your phone number
+  };
+
   return (
     <>
       <Flex
@@ -18,20 +28,7 @@ const Header = () => {
         </Link>
         <GetQuoteButton />
 
-        <Flex justify={"end"} gap={"2"} pr={"5"} mr={"3"}>
-          <IconButton style={{ backgroundColor: "transparent" }}>
-            <MobileIcon
-              className="text-base hover: cursor-pointer"
-              color="black"
-            />
-          </IconButton>
-          <IconButton style={{ backgroundColor: "transparent" }}>
-            <EnvelopeClosedIcon
-              className="text-base hover: cursor-pointer"
-              color="black"
-            />
-          </IconButton>
-        </Flex>
+        <ContactButtons />
       </Flex>
     </>
   );

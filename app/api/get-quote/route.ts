@@ -18,24 +18,38 @@ export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const email = formData.get("email") as unknown as string;
   const phone = formData.get("phoneNumber") as unknown as string;
+  const files = formData.getAll("files") as unknown as File[];
   let name = formData.get("name") as unknown as string;
 
   if (!name) {
     name = "Customer";
   }
 
+  const attachments = await Promise.all(
+    files.map(async (file) => {
+      // Assuming 'file' is a Blob or File object, convert it to Buffer
+      const buffer = await file.arrayBuffer();
+      return {
+        filename: file.name,
+        contentType: file.type,
+        data: Buffer.from(buffer),
+      };
+    })
+  );
+
   const messageDataCustomer = {
     from: `Oak Outlet Plus <noreply@${DOMAIN}>`,
     to: email,
-    subject: "Confirmation email",
+    subject: "Confirmation Email",
     text: `Hello ${name}, this is a confirmation email from Oak Outlet Plus. Thank you for choosing us! We will get in touch with you soon.`,
   };
 
   const messageDataProvider = {
     from: `Oak Outlet Plus <noreply@${DOMAIN}>`,
-    to: "nickatz5@yahoo.com",
+    to: "astraight9409@sdsu.edu",
     subject: "Customer quote",
     text: `${name}, is requesting a quote: \n ${email}, \n ${phone}`,
+    attachment: attachments,
   };
 
   await client.messages.create(MAILGUN_DOMAIN, messageDataCustomer);

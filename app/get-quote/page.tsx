@@ -1,21 +1,17 @@
 "use client";
-import * as Form from "@radix-ui/react-form";
-import {
-  Button,
-  Container,
-  Flex,
-  Heading,
-  Text,
-  TextFieldInput,
-} from "@radix-ui/themes";
+import { SubmitButton } from "@/components/ui/SubmitButton";
+import { FilePlusIcon } from "@radix-ui/react-icons";
+import { Button, Flex, TextFieldInput } from "@radix-ui/themes";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const GetQuote = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [files, setFiles] = useState<FileList | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
 
@@ -54,9 +50,7 @@ const GetQuote = () => {
     return value;
   };
 
-  const handlePhoneNumberChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formattedPhoneNumber = formatPhoneNumber(e.target.value);
     setPhoneNumber(formattedPhoneNumber);
   };
@@ -65,98 +59,102 @@ const GetQuote = () => {
     setFiles(e.target.files);
   };
 
+  const handleFileButtonClick = () => {
+    if (fileInputRef?.current) fileInputRef.current.click();
+  };
+
   return (
-    <Flex justify={"center"} direction={"column"} align={"center"}>
-      <Heading mb={"3"}>Get Quote</Heading>
-      <Container size={"4"}>
-        <Form.Root
-          onSubmit={onSubmit}
-          className="space-y-4 w-full sm:w-[400px]"
-        >
-          <Form.Field name="name" className="flex flex-col">
-            <Form.Label className="FormLabel">Name</Form.Label>
-            <Form.Control asChild>
-              <TextFieldInput
-                className="Input"
-                type="name"
-                value={name}
-                onChange={(e: any) => setName(e.target.value)}
-                placeholder="Name"
-              />
-            </Form.Control>
-          </Form.Field>
-          <Form.Field name="email" className="flex flex-col">
-            <Form.Label className="FormLabel required-field">Email</Form.Label>
-            <Form.Control asChild>
-              <TextFieldInput
-                className="Input"
-                type="email"
-                name="email"
-                required
-                value={email}
-                onChange={(e: any) => setEmail(e.target.value)}
-                placeholder="Email"
-              />
-            </Form.Control>
-            <Form.Message match="valueMissing">Email is required</Form.Message>
-            <Form.Message match="typeMismatch">
-              Please provide a valid email
-            </Form.Message>
-          </Form.Field>
-          <Form.Field name="phoneNumber" className="flex flex-col">
-            <Form.Label className="FormLabel required-field">
-              Phone Number
-            </Form.Label>
-            <Form.Control asChild>
-              <TextFieldInput
-                className="Input"
-                type="tel"
-                required
-                value={phoneNumber}
-                onChange={handlePhoneNumberChange}
-                placeholder="Phone Number"
-                maxLength={14}
-              />
-            </Form.Control>
-            <Form.Message match="valueMissing">
-              Please enter your phone number
-            </Form.Message>
-            <Form.Message match="typeMismatch">
-              Please provide a valid phone number
-            </Form.Message>
-          </Form.Field>
-          <Form.Field name="files" className="flex flex-col">
-            <Text as="div" size={"1"} color="gray" align={"center"} m={"2"}>
-              Upload pictures of your kitchen to get a more accurate quote
-            </Text>
-            <Form.Label
-              htmlFor="fileInput"
-              className="rt-Button rt-variant-soft rt-BaseButton rt-r-size-2"
-              role="button"
-              aria-label="Upload Pictures"
+    <>
+      <Flex
+        direction="column"
+        justify="center"
+        align="center"
+        style={{
+          backgroundColor: "#f5f5f5", // Light gray background
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Subtle shadow
+          maxWidth: "600px",
+          margin: "auto",
+          padding: "20px",
+          borderRadius: "xl",
+        }}
+        position={"relative"}
+      >
+        <form onSubmit={onSubmit}>
+          <Flex direction="column" gap="2" justify="center" align="center">
+            <TextFieldInput
+              placeholder="Name"
+              name="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <TextFieldInput
+              placeholder="Email"
+              name="email"
+              type="email"
+              value={email}
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextFieldInput
+              placeholder="Phone Number"
+              name="phoneNumber"
+              type="tel"
+              value={phoneNumber}
+              required
+              onChange={(e) => handlePhoneNumberChange(e)}
+            />
+
+            <input
+              hidden
+              type="file"
+              ref={fileInputRef}
+              multiple
+              accept="image/*"
+              onChange={(e) => handleFileChange(e)}
+            />
+            <Button
+              className="hover:cursor-pointer"
+              onClick={handleFileButtonClick}
             >
-              Choose Files
-            </Form.Label>
-            <Form.Control asChild>
-              <div>
-                <input
-                  id="fileInput"
-                  type="file"
-                  name="files"
-                  accept="image/*"
-                  multiple
-                  onChange={handleFileChange}
-                  style={{ display: "none" }}
-                />
-              </div>
-            </Form.Control>
-          </Form.Field>
-          <Form.Submit asChild>
-            <Button>Submit</Button>
-          </Form.Submit>
-        </Form.Root>
-      </Container>
-    </Flex>
+              <FilePlusIcon />
+              Add Photos
+            </Button>
+
+            {/* Displaying uploaded file names and previews */}
+            <Flex direction="column" gap="2" mt="3">
+              {files &&
+                Array.from(files).map((file, index) => (
+                  <Flex key={index} align="center" gap="2">
+                    <Image
+                      src={URL.createObjectURL(file)}
+                      alt={file.name}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        objectFit: "cover",
+                      }}
+                    />
+                    <span>{file.name}</span>
+                  </Flex>
+                ))}
+            </Flex>
+          </Flex>
+
+          {/* Get Quote Button */}
+          <Flex
+            justify="end"
+            mt="3"
+            position={"absolute"}
+            bottom={"0"}
+            right={"0"}
+            p={"2"}
+          >
+            <SubmitButton>Get Quote</SubmitButton>
+          </Flex>
+        </form>
+      </Flex>
+    </>
   );
 };
 
