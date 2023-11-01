@@ -12,7 +12,7 @@ const ContactButtons = () => {
   };
 
   return (
-    <Flex gap={"2"}>
+    <Flex gap={"2"} justify={"end"}>
       <IconButton
         style={{ backgroundColor: "transparent" }}
         onClick={handleTextMessage}
