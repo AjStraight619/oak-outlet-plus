@@ -1,5 +1,5 @@
 "use client";
-import { Button, Flex } from "@radix-ui/themes";
+import { Button } from "@radix-ui/themes";
 import { usePathname, useRouter } from "next/navigation";
 
 const GetQuoteButton = () => {
@@ -7,16 +7,16 @@ const GetQuoteButton = () => {
   const router = useRouter();
 
   return (
-    <Flex justify={"center"}>
+    <>
       {pathname !== "/get-quote" && pathname !== "/thank-you" && (
         <Button
-          className="hover:cursor-pointer"
+          className="hover: cursor-pointer"
           onClick={() => router.push("/get-quote")}
         >
           Get a Quote!
         </Button>
       )}
-    </Flex>
+    </>
   );
 };
 

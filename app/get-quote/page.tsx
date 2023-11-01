@@ -1,4 +1,5 @@
 "use client";
+import { sendEmail } from "@/app/actions/actions";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { FilePlusIcon } from "@radix-ui/react-icons";
 import { Button, Flex, TextFieldInput } from "@radix-ui/themes";
@@ -14,32 +15,6 @@ const GetQuote = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
-
-  const onSubmit = async (e: any) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("phoneNumber", phoneNumber);
-    if (files) {
-      for (let i = 0; i < files.length; i++) {
-        formData.append("files", files[i]);
-      }
-    }
-    try {
-      const res = await fetch("/api/get-quote", {
-        method: "POST",
-        body: formData,
-      });
-      if (res.ok) {
-        const data = await res.json();
-        console.log(data);
-        router.push(`/thank-you?name=${encodeURIComponent(name)}`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const formatPhoneNumber = (value: string) => {
     const cleaned = ("" + value).replace(/\D/g, "");
@@ -79,7 +54,25 @@ const GetQuote = () => {
         }}
         position={"relative"}
       >
-        <form onSubmit={onSubmit}>
+        <form
+          action={async (formData) => {
+            formData.append("name", name);
+            formData.append("email", email);
+            formData.append("phoneNumber", phoneNumber);
+            if (files) {
+              for (let i = 0; i < files.length; i++) {
+                formData.append("files", files[i]);
+              }
+            }
+
+            try {
+              await sendEmail(formData);
+              router.push(`/thank-you?name=${encodeURIComponent(name)}`);
+            } catch (error) {
+              console.log(error);
+            }
+          }}
+        >
           <Flex direction="column" gap="2" justify="center" align="center">
             <TextFieldInput
               placeholder="Name"
@@ -115,7 +108,10 @@ const GetQuote = () => {
             />
             <Button
               className="hover:cursor-pointer"
-              onClick={handleFileButtonClick}
+              onClick={(event) => {
+                event.preventDefault();
+                handleFileButtonClick();
+              }}
             >
               <FilePlusIcon />
               Add Photos
@@ -130,10 +126,10 @@ const GetQuote = () => {
                       src={URL.createObjectURL(file)}
                       alt={file.name}
                       style={{
-                        width: "50px",
-                        height: "50px",
                         objectFit: "cover",
                       }}
+                      width={50}
+                      height={50}
                     />
                     <span>{file.name}</span>
                   </Flex>
