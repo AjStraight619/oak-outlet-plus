@@ -7,7 +7,7 @@ const GoBack = () => {
   const router = useRouter();
   const pathname = usePathname();
   return (
-    <Box top={"0"} left={"0"}>
+    <Box top={"0"} left={"0"} pr={"2"}>
       {pathname !== "/" && (
         <IconButton
           className=" text-4xl hover:cursor-pointer"
