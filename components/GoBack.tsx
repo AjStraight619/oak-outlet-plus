@@ -10,7 +10,7 @@ const GoBack = () => {
     <Box top={"0"} left={"0"} pr={"2"}>
       {pathname !== "/" && (
         <IconButton
-          className=" text-4xl hover:cursor-pointer"
+          className="text-4xl hover:cursor-pointer"
           onClick={() => router.back()}
           style={{ backgroundColor: "transparent" }}
         >

@@ -8,7 +8,7 @@ const ContactButtons = () => {
   };
 
   const handleTextMessage = () => {
-    window.location.href = "sms:+3606330999";
+    window.location.href = "sms:+360-633-0999";
   };
 
   return (
