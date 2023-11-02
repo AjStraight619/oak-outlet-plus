@@ -15,10 +15,11 @@ const mailgun = new Mailgun(formData);
 const client = mailgun.client({ username: "api", key: API_KEY });
 
 export const sendEmail = async (formData: FormData) => {
+  let name = formData.get("name") as unknown as string;
   const email = formData.get("email") as unknown as string;
   const phone = formData.get("phoneNumber") as unknown as string;
+  const description = formData.get("description") as unknown as string;
   const files = formData.getAll("files") as unknown as File[];
-  let name = formData.get("name") as unknown as string;
 
   if (!name) {
     name = "Customer";
@@ -44,10 +45,10 @@ export const sendEmail = async (formData: FormData) => {
   };
 
   const messageDataProvider = {
-    from: `Oak Outlet Plus <noreply@${MAILGUN_DOMAIN}>`,
+    from: `${email}`,
     to: "astraight9409@sdsu.edu",
     subject: "Customer quote",
-    text: `${name}, is requesting a quote: \n ${email}, \n ${phone}`,
+    text: `${name}, is requesting a quote: \n ${email}, \n ${phone}, \n ${description}`,
     attachment: attachments,
   };
 

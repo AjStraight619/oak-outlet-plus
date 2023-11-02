@@ -1,11 +1,8 @@
-import { v4 as uuid } from "uuid";
-
 type Photo = {
   id: string;
   url: string;
   name?: string;
   style?: string;
-  // You can add additional fields like title, description, etc.
 };
 
 export type PhotoAlbum = {
@@ -16,117 +13,18 @@ export type PhotoAlbum = {
 export const photoAlbums: PhotoAlbum[] = [
   {
     coverPhoto: {
-      id: uuid(),
-      url: "https://source.unsplash.com/featured/?kitchen,modern1",
+      id: "1",
+      url: "/photos/refinish/4.jpg",
       name: "refinish",
       style: "modern",
     },
     photos: [
-      {
-        id: uuid(),
-        url: "https://source.unsplash.com/featured/?kitchen,modern2",
-      },
-      {
-        id: uuid(),
-        url: "https://source.unsplash.com/featured/?kitchen,modern3",
-      },
-      // ... more photos
+      { id: "2", url: "/photos/refinish/1.jpg" },
+      { id: "3", url: "/photos/refinish/2.jpg" },
+      { id: "4", url: "/photos/refinish/3.jpg" },
+      { id: "5", url: "/photos/refinish/4.jpg" },
+      { id: "6", url: "/photos/refinish/5.jpg" },
+      { id: "7", url: "/photos/refinish/6.jpg" },
     ],
   },
-  {
-    coverPhoto: {
-      id: uuid(),
-      url: "https://source.unsplash.com/featured/?kitchen,traditional1",
-      name: "remodel",
-      style: "traditional",
-    },
-    photos: [
-      {
-        id: uuid(),
-        url: "https://source.unsplash.com/featured/?kitchen,traditional2",
-      },
-      {
-        id: uuid(),
-        url: "https://source.unsplash.com/featured/?kitchen,traditional3",
-      },
-      // ... more photos
-    ],
-  },
-  {
-    coverPhoto: {
-      id: uuid(),
-      url: "https://source.unsplash.com/featured/?kitchen,rustic1",
-      name: "other",
-      style: "rustic",
-    },
-    photos: [
-      {
-        id: uuid(),
-        url: "https://source.unsplash.com/featured/?kitchen,rustic2",
-      },
-      {
-        id: uuid(),
-        url: "https://source.unsplash.com/featured/?kitchen,rustic3",
-      },
-      // ... more photos
-    ],
-  },
-  {
-    coverPhoto: {
-      id: uuid(),
-      url: "https://source.unsplash.com/featured/?kitchen,modern4",
-      name: "refinish",
-      style: "modern",
-    },
-    photos: [
-      {
-        id: uuid(),
-        url: "https://source.unsplash.com/featured/?kitchen,modern5",
-      },
-      {
-        id: uuid(),
-        url: "https://source.unsplash.com/featured/?kitchen,modern6",
-      },
-      // ... more photos
-    ],
-  },
-  {
-    coverPhoto: {
-      id: uuid(),
-      url: "https://source.unsplash.com/featured/?kitchen,traditional4",
-      name: "remodel",
-      style: "traditional",
-    },
-    photos: [
-      {
-        id: uuid(),
-        url: "https://source.unsplash.com/featured/?kitchen,traditional5",
-      },
-      {
-        id: uuid(),
-        url: "https://source.unsplash.com/featured/?kitchen,traditional6",
-      },
-      // ... more photos
-    ],
-  },
-  {
-    coverPhoto: {
-      id: uuid(),
-      url: "https://source.unsplash.com/featured/?kitchen,rustic4",
-      name: "other",
-      style: "rustic",
-    },
-    photos: [
-      {
-        id: uuid(),
-        url: "https://source.unsplash.com/featured/?kitchen,rustic5",
-      },
-      {
-        id: uuid(),
-        url: "https://source.unsplash.com/featured/?kitchen,rustic6",
-      },
-      // ... more photos
-    ],
-  },
-  // ... more albums following this pattern as needed
 ];

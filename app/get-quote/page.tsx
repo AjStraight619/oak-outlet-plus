@@ -171,6 +171,7 @@ const GetQuote = () => {
         >
           <Flex direction="column" width="100%" p={"4"}>
             <form
+              // Server Action
               className="w-full"
               action={async (formData) => {
                 formData.append("name", name);
@@ -188,7 +189,6 @@ const GetQuote = () => {
                   router.push(`/thank-you?name=${encodeURIComponent(name)}`);
                 } catch (error) {
                   alert("Something went wrong. Please try again.");
-                  console.log(error);
                 }
               }}
             >

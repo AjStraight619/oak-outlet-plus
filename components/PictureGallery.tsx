@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 const categories = ["refinish", "remodel", "other"];
 
 const PictureGallery = () => {
-  const [selectedCategory, setSelectedCategory] = useState("remodel");
+  const [selectedCategory, setSelectedCategory] = useState("refinish");
   const [filteredAlbums, setFilteredAlbums] = useState<PhotoAlbum[]>([]);
   const [style, setStyle] = useState("modern");
   const router = useRouter();
@@ -28,10 +28,10 @@ const PictureGallery = () => {
         album.coverPhoto.name === selectedCategory &&
         album.coverPhoto.style === style
     );
+
+    console.log("Cover photo id", filtered[0].coverPhoto.id);
     setFilteredAlbums(filtered);
   }, [selectedCategory, style]);
-
-  console.log("This is the filtered album", filteredAlbums);
 
   return (
     <>
@@ -120,7 +120,7 @@ const PictureGallery = () => {
               className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 border border-gray-300 p-4 m-2 rounded shadow-lg flex-wrap"
               key={album.coverPhoto.id}
             >
-              <AspectRatio ratio={16 / 8}>
+              <AspectRatio ratio={9 / 12}>
                 <Image
                   onClick={() =>
                     router.push(`/${selectedCategory}/${album.coverPhoto.id}`)
