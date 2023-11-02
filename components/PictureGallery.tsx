@@ -1,9 +1,11 @@
 "use client";
 import { PhotoAlbum, photoAlbums } from "@/app/photos/photos";
+import { CaretDownIcon } from "@radix-ui/react-icons";
 import {
   AspectRatio,
   Box,
   Button,
+  DropdownMenu,
   Flex,
   Separator,
   Text,
@@ -17,14 +19,17 @@ const categories = ["refinish", "remodel", "other"];
 const PictureGallery = () => {
   const [selectedCategory, setSelectedCategory] = useState("remodel");
   const [filteredAlbums, setFilteredAlbums] = useState<PhotoAlbum[]>([]);
+  const [style, setStyle] = useState("modern");
   const router = useRouter();
 
   useEffect(() => {
     const filtered = photoAlbums.filter(
-      (album) => album.coverPhoto.name === selectedCategory
+      (album) =>
+        album.coverPhoto.name === selectedCategory &&
+        album.coverPhoto.style === style
     );
     setFilteredAlbums(filtered);
-  }, [selectedCategory]);
+  }, [selectedCategory, style]);
 
   console.log("This is the filtered album", filteredAlbums);
 
@@ -34,7 +39,7 @@ const PictureGallery = () => {
         direction={"column"}
         align={"center"}
         justify={"center"}
-        className="w-full"
+        width={"100%"}
       >
         <Flex
           gap={"3"}
@@ -55,12 +60,52 @@ const PictureGallery = () => {
                   {category.charAt(0).toUpperCase() + category.slice(1)}
                 </Text>
               </Button>
-              {idx !== categories.length - 1 && (
-                <Separator orientation="vertical" />
-              )}
+
+              <Separator orientation="vertical" />
             </>
           ))}
+
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger>
+              <Button variant="soft">
+                <Text size={"1"}>
+                  {style.charAt(0).toUpperCase() + style.slice(1)}
+                </Text>
+                <CaretDownIcon />
+              </Button>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content>
+              <DropdownMenu.Item onSelect={() => setStyle("modern")}>
+                Modern
+              </DropdownMenu.Item>
+              <DropdownMenu.Item onSelect={() => setStyle("traditional")}>
+                Traditional
+              </DropdownMenu.Item>
+              <DropdownMenu.Item onSelect={() => setStyle("rustic")}>
+                Rustic
+              </DropdownMenu.Item>
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
         </Flex>
+
+        <Flex justify={"between"} width={"100%"} direction={"column"} mt={"2"}>
+          <Flex justify={"between"} align={"center"} width={"100%"} gap="3">
+            <Box className="flex-1 mb-2 text-center">
+              <Text size={"1"} color={"gray"}>
+                {selectedCategory.charAt(0).toUpperCase() +
+                  selectedCategory.slice(1)}
+              </Text>
+            </Box>
+
+            <Box className="flex-1 mb-2 text-center">
+              <Text size={"1"} color={"gray"}>
+                {style.charAt(0).toUpperCase() + style.slice(1)}
+              </Text>
+            </Box>
+          </Flex>
+          <Separator orientation="horizontal" size={"4"} />
+        </Flex>
+
         <Flex
           direction={"row"}
           gap={"3"}
@@ -68,13 +113,14 @@ const PictureGallery = () => {
           align={"center"}
           justify={"center"}
           className="w-full"
+          mt={"2"}
         >
           {filteredAlbums.map((album) => (
             <Box
               className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 border border-gray-300 p-4 m-2 rounded shadow-lg flex-wrap"
               key={album.coverPhoto.id}
             >
-              <AspectRatio ratio={16 / 9}>
+              <AspectRatio ratio={16 / 8}>
                 <Image
                   onClick={() =>
                     router.push(`/${selectedCategory}/${album.coverPhoto.id}`)
@@ -82,8 +128,9 @@ const PictureGallery = () => {
                   src={album.coverPhoto.url}
                   alt={"Cover Photo"}
                   style={{ borderRadius: "var(--radius-2)" }}
-                  fill
+                  fill={true}
                   priority
+                  quality={100}
                 />
               </AspectRatio>
               {/* album details will go here */}

@@ -43,13 +43,13 @@ export const sendEmail = async (formData: FormData) => {
     attachment: attachments,
   };
 
-  //   const messageDataProvider = {
-  //     from: `Oak Outlet Plus <noreply@${MAILGUN_DOMAIN}>`,
-  //     to: "astraight9409@sdsu.edu",
-  //     subject: "Customer quote",
-  //     text: `${name}, is requesting a quote: \n ${email}, \n ${phone}`,
-  //     attachment: attachments,
-  //   };
+  const messageDataProvider = {
+    from: `Oak Outlet Plus <noreply@${MAILGUN_DOMAIN}>`,
+    to: "astraight9409@sdsu.edu",
+    subject: "Customer quote",
+    text: `${name}, is requesting a quote: \n ${email}, \n ${phone}`,
+    attachment: attachments,
+  };
 
   try {
     await client.messages.create(MAILGUN_DOMAIN, messageDataCustomer);
