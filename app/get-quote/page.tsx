@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import "./styles.css";
 
 const GetQuote = () => {
   const [name, setName] = useState("");
@@ -246,6 +247,7 @@ const GetQuote = () => {
                   <Flex width={"100%"}>
                     <TextArea
                       size={"2"}
+                      placeholder="Describe your kitchen project (e.g., refinishing cabinets, new countertops)."
                       name="description"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
