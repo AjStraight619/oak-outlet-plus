@@ -129,11 +129,9 @@ const PictureGallery = () => {
                   alt={"Cover Photo"}
                   style={{ borderRadius: "var(--radius-2)" }}
                   fill={true}
-                  priority
                   quality={100}
                 />
               </AspectRatio>
-              {/* album details will go here */}
             </Box>
           ))}
         </Flex>

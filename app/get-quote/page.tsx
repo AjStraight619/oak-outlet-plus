@@ -7,9 +7,9 @@ import {
   Box,
   Button,
   Flex,
-  Heading,
   Separator,
   Text,
+  TextArea,
   TextFieldInput,
 } from "@radix-ui/themes";
 import Image from "next/image";
@@ -21,6 +21,7 @@ const GetQuote = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [files, setFiles] = useState<File[] | null>(null);
+  const [description, setDescription] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState<boolean[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -153,6 +154,7 @@ const GetQuote = () => {
         align="center"
         height={"100%"}
         mt={"2"}
+        width={"100%"}
       >
         <Flex
           direction="column"
@@ -163,24 +165,20 @@ const GetQuote = () => {
             backgroundColor: "#f5f5f5",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
             borderRadius: "xl",
-            maxWidth: "400px",
+            maxWidth: "600px",
           }}
-          position={"relative"}
         >
           <Flex direction="column" width="100%" p={"4"}>
-            <Heading mb={"5"} align={"center"}>
-              Contact Info
-            </Heading>
             <form
               className="w-full"
               action={async (formData) => {
                 formData.append("name", name);
                 formData.append("email", email);
                 formData.append("phoneNumber", phoneNumber);
+                formData.append("description", description);
                 if (files) {
                   for (let i = 0; i < files.length; i++) {
                     formData.append("files", files[i]);
-                    console.log("file appended", files[i]);
                   }
                 }
 
@@ -235,7 +233,25 @@ const GetQuote = () => {
                     value={phoneNumber}
                     required
                     onChange={(e) => handlePhoneNumberChange(e)}
+                    maxLength={14}
                   />
+                </Box>
+                <Box className="justify-start w-full">
+                  <label
+                    htmlFor="description"
+                    className="text-gray-400 text-sm"
+                  >
+                    Description
+                  </label>
+                  <Flex width={"100%"}>
+                    <TextArea
+                      size={"2"}
+                      name="description"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      style={{ width: "100%" }} // Adjust the percentage as needed
+                    />
+                  </Flex>
                 </Box>
 
                 <Flex
@@ -290,8 +306,6 @@ const GetQuote = () => {
                           blurDataURL={URL.createObjectURL(file)}
                         />
                         <Box style={{ width: "150px" }}>
-                          {" "}
-                          {/* Adjust the width as needed */}
                           {isEditing[index] ? (
                             <TextFieldInput
                               type="text"
