@@ -117,11 +117,12 @@ const PictureGallery = () => {
         >
           {filteredAlbums.map((album) => (
             <Box
-              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 border border-gray-300 p-4 m-2 rounded shadow-lg flex-wrap"
+              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 border border-gray-300 p-4 m-2 rounded shadow-lg flex-wrap "
               key={album.coverPhoto.id}
             >
               <AspectRatio ratio={9 / 12}>
                 <Image
+                  className="hover: cursor-pointer"
                   onClick={() =>
                     router.push(`/${selectedCategory}/${album.coverPhoto.id}`)
                   }
