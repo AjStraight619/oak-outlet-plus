@@ -19,6 +19,7 @@ const BeforeAfterSlider = ({
     onSwipedLeft: () => hasBeforeImage && setIsBeforeImage(true),
     onSwipedRight: () => setIsBeforeImage(false),
     trackMouse: true,
+    preventScrollOnSwipe: true,
   });
 
   const currentImageSrc = isBeforeImage ? beforeImage : afterImage;
