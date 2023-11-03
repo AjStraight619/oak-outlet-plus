@@ -1,7 +1,8 @@
 "use client";
 import { AspectRatio, Box, Flex, Text } from "@radix-ui/themes";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { useSwipeable } from "react-swipeable";
 
 type BeforeAfterSliderProps = {
   beforeImage?: string;
@@ -14,25 +15,11 @@ const BeforeAfterSlider = ({
 }: BeforeAfterSliderProps) => {
   const hasBeforeImage = !!beforeImage;
   const [isBeforeImage, setIsBeforeImage] = useState(false);
-  const touchStartXRef = useRef(0);
-
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    const touchStartX = e.touches[0].clientX;
-    touchStartXRef.current = touchStartX;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
-    const touchEndX = e.changedTouches[0].clientX;
-    const touchStartX = touchStartXRef.current;
-    const touchDelta = touchEndX - touchStartX;
-
-    const swipeThreshold = 30;
-    if (touchDelta < -swipeThreshold && hasBeforeImage) {
-      setIsBeforeImage(true);
-    } else if (touchDelta > swipeThreshold) {
-      setIsBeforeImage(false);
-    }
-  };
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => hasBeforeImage && setIsBeforeImage(true),
+    onSwipedRight: () => setIsBeforeImage(false),
+    trackMouse: true,
+  });
 
   const currentImageSrc = isBeforeImage ? beforeImage : afterImage;
   const imageIndicator = hasBeforeImage
@@ -45,8 +32,7 @@ const BeforeAfterSlider = ({
     <Flex align={"center"} justify={"center"}>
       <Box
         className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 border border-gray-300 p-4 m-2 rounded shadow-lg relative flex-wrap mb-2"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
+        {...swipeHandlers}
       >
         <Text
           as="div"
